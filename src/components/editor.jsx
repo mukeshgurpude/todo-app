@@ -6,6 +6,6 @@ export default function Editor({addTask}) {
   const handleChange = e => setName(e.target.value);
   return <Box>
     <TextField value={name} onChange={handleChange} />
-    <Button onClick={()=>addTask(name)}>Add</Button>
+    <Button onClick={()=>{addTask(name);setName('')}}>Add</Button>
   </Box>
 }

@@ -1,9 +1,15 @@
-import { CssBaseline, Stack, Tab, Tabs, Typography } from '@mui/material';
+import { Badge, CssBaseline, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
 import TaskList from './components/list.jsx'
 import Editor from './components/editor.jsx';
 
 const TASK_KEY = 'tasks';
+
+export function Label({text, num}) {
+  return <Badge badgeContent={num} color="primary">
+    <Typography variant="body2">{text}</Typography>
+  </Badge>
+}
 
 function App() {
   const [ tasks, setTasks] = useState(
@@ -47,9 +53,9 @@ function App() {
     <Stack m='0 auto' width='max-content'>
       <Typography variant="h1">#todo</Typography>
       <Tabs value={filter} onChange={(e, value) => setFilter(value)}>
-        <Tab value="all">all</Tab>
-        <Tab label="Active" value="active"/>
-        <Tab label="Completed" value="completed"/>
+        <Tab label={<Label text="All" num={tasks.count} />} value="all"/>
+        <Tab label={<Label text="Active" num={tasks.tasks.filter(t => !t.done).length} />} value="active"/>
+        <Tab label={<Label text="Completed" num={tasks.tasks.filter(t => t.done).length} />} value="completed"/>
       </Tabs>
       <Editor addTask={add_task}></Editor>
       <TaskList value="all" tasks={tasks} filter={filter} toggleTask={toggle_task} />
