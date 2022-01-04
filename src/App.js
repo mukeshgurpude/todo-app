@@ -1,4 +1,4 @@
-import { CssBaseline, Stack, Tab, TabPanel, Tabs, Typography } from '@mui/material';
+import { CssBaseline, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
 import TaskList from './components/list.jsx'
 import Editor from './components/editor.jsx';
@@ -12,7 +12,6 @@ function App() {
     : {count: 0, tasks: []}
   );
   const [filter, setFilter] = useState('all');
-  const [input, setInput] = useState('');
 
   useEffect(() => {
     localStorage.setItem(TASK_KEY, JSON.stringify(tasks));
@@ -28,18 +27,32 @@ function App() {
       }]
     })
   }
+  function toggle_task(id, completed) {
+    setTasks({
+      count: tasks.count,
+      tasks: tasks.tasks.map(task => {
+        if (task.id === id) {
+          return {
+            ...task,
+            done: completed
+          }
+        }
+        return task;
+      })
+    })
+  }
 
   return <>
     <CssBaseline />
     <Stack m='0 auto' width='max-content'>
       <Typography variant="h1">#todo</Typography>
       <Tabs value={filter} onChange={(e, value) => setFilter(value)}>
-        <Tab label="All" value="all"/>
+        <Tab value="all">all</Tab>
         <Tab label="Active" value="active"/>
         <Tab label="Completed" value="completed"/>
       </Tabs>
       <Editor addTask={add_task}></Editor>
-      <TaskList value="all" tasks={tasks} filter={filter} />
+      <TaskList value="all" tasks={tasks} filter={filter} toggleTask={toggle_task} />
     </Stack>
   </>;
 }
