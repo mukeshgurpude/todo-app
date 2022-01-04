@@ -48,6 +48,20 @@ function App() {
     })
   }
 
+  function remove_task(id) {
+    setTasks({
+      count: tasks.count - 1,
+      tasks: tasks.tasks.filter(task => task.id !== id)
+    })
+  }
+  function clear_completed() {
+    const completed = tasks.tasks.filter(task => task.done);
+    setTasks({
+      count: tasks.count - completed.length,
+      tasks: tasks.tasks.filter(task => !task.done)
+    })
+  }
+
   return <>
     <CssBaseline />
     <Stack m='0 auto' width='max-content'>
@@ -58,7 +72,13 @@ function App() {
         <Tab label={<Label text="Completed" num={tasks.tasks.filter(t => t.done).length} />} value="completed"/>
       </Tabs>
       <Editor addTask={add_task}></Editor>
-      <TaskList value="all" tasks={tasks} filter={filter} toggleTask={toggle_task} />
+      <TaskList value="all" 
+        tasks={tasks}
+        filter={filter}
+        toggleTask={toggle_task}
+        clearCompleted={clear_completed}
+        removeTask={remove_task}
+      />
     </Stack>
   </>;
 }

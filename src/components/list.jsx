@@ -1,7 +1,7 @@
-import { List, Typography, Stack } from '@mui/material'
+import { Button, List, Typography, Stack } from '@mui/material'
 import Task from './task.jsx'
 
-export default function TaskList({tasks, filter, toggleTask}) {
+export default function TaskList({tasks, filter, toggleTask, clearCompleted, removeTask}) {
   let filteredTasks = tasks.tasks;
   switch(filter) {
     case 'all':
@@ -20,8 +20,11 @@ export default function TaskList({tasks, filter, toggleTask}) {
     <Stack spacing={2}>
       <Typography variant="h3">{filter} Tasks</Typography>
       <Typography variant="h5">Count: {filteredTasks.length}</Typography>
+      {
+        filter === 'completed' && <Button onClick={clearCompleted}>Remove completed</Button>
+      }
       <List>
-        {filteredTasks.map(task => <Task key={task.id} task={task} toggleTask={toggleTask} />)}
+        {filteredTasks.map(task => <Task key={task.id} task={task} toggleTask={toggleTask} removeTask={removeTask}/>)}
       </List>
     </Stack>
   </>
