@@ -18,8 +18,7 @@ export default function TaskList({tasks, filter, toggleTask, clearCompleted, rem
 
   return <>
     <Stack spacing={2}>
-      <Typography variant="h3">{filter} Tasks</Typography>
-      <Typography variant="h5">Count: {filteredTasks.length}</Typography>
+      <Typography variant="body1"><strong>Count</strong>: {filteredTasks.length}</Typography>
       {
         filter === 'completed' && <Button onClick={clearCompleted}>Remove completed</Button>
       }

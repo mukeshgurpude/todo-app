@@ -11,7 +11,7 @@ export default function Editor({addTask}) {
   }
 
   return <form onSubmit={handleSubmit}>
-    <TextField value={name} onChange={handleChange} />
+    <TextField value={name} label="Task" onChange={handleChange} size='small' variant="filled" required/>
     <Button type="submit">Add</Button>
   </form>
 }
