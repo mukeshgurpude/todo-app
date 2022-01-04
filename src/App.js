@@ -1,5 +1,6 @@
-import { Badge, Box, CssBaseline, Paper, Stack, Tab, Tabs, Typography } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { Badge, Box, CssBaseline, Paper, Stack, Tab, Tabs, Typography, useMediaQuery } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useState, useEffect, useMemo } from 'react';
 import TaskList from './components/list.jsx'
 import Editor from './components/editor.jsx';
 
@@ -17,7 +18,17 @@ function App() {
     ? JSON.parse(localStorage.getItem(TASK_KEY))
     : {count: 0, last: 0, tasks: []}
   );
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState('all');const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode],
+  );
 
   useEffect(() => {
     localStorage.setItem(TASK_KEY, JSON.stringify(tasks));
@@ -66,27 +77,29 @@ function App() {
     })
   }
 
-  return <Box sx={{justifyContent: 'center', alignItems: 'center',display: 'flex',minHeight: '100vh'}}>
-    <Paper elevation={7} sx={{maxWidth: 'max-content', padding: 2, textAlign: 'center'}}>
-      <CssBaseline />
-      <Stack m='0 auto' spacing={2} width='max-content'>
-        <Typography variant="h3">#todo</Typography>
-        <Tabs value={filter} onChange={(e, value) => setFilter(value)}>
-          <Tab label={<Label text="All" num={tasks.count} />} value="all"/>
-          <Tab label={<Label text="Active" num={tasks.tasks.filter(t => !t.done).length} />} value="active"/>
-          <Tab label={<Label text="Completed" num={tasks.tasks.filter(t => t.done).length} />} value="completed"/>
-        </Tabs>
-        <Editor addTask={add_task}></Editor>
-        <TaskList value="all" 
-          tasks={tasks}
-          filter={filter}
-          toggleTask={toggle_task}
-          clearCompleted={clear_completed}
-          removeTask={remove_task}
-        />
-      </Stack>
-    </Paper>
-  </Box>
+  return <ThemeProvider theme={theme}>
+    <Box sx={{justifyContent: 'center', alignItems: 'center',display: 'flex',minHeight: '100vh'}}>
+      <Paper elevation={7} sx={{maxWidth: 'max-content', padding: 2, textAlign: 'center'}}>
+        <CssBaseline />
+        <Stack m='0 auto' spacing={2} width='max-content'>
+          <Typography variant="h3">#todo</Typography>
+          <Tabs value={filter} onChange={(e, value) => setFilter(value)}>
+            <Tab label={<Label text="All" num={tasks.count} />} value="all"/>
+            <Tab label={<Label text="Active" num={tasks.tasks.filter(t => !t.done).length} />} value="active"/>
+            <Tab label={<Label text="Completed" num={tasks.tasks.filter(t => t.done).length} />} value="completed"/>
+          </Tabs>
+          <Editor addTask={add_task}></Editor>
+          <TaskList value="all" 
+            tasks={tasks}
+            filter={filter}
+            toggleTask={toggle_task}
+            clearCompleted={clear_completed}
+            removeTask={remove_task}
+          />
+        </Stack>
+      </Paper>
+    </Box>
+  </ThemeProvider>
 }
 
 export default App;

@@ -11,7 +11,8 @@ export default function Editor({addTask}) {
   }
 
   return <form onSubmit={handleSubmit} style={{display: 'flex', alignItems: 'center'}}>
-    <TextField value={name} label="Task" onChange={handleChange} size='small' variant="filled" required/>
-    <Button type="submit">Add</Button>
+    <TextField value={name} label="Task" onChange={handleChange} size='small' InputProps={{
+      endAdornment: <Button type="submit" variant="contained" size="small">Add</Button>
+    }} required/>
   </form>
 }
