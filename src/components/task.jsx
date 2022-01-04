@@ -14,7 +14,7 @@ export default function Task({task, toggleTask, removeTask}) {
     </ListItemIcon>
     <ListItemText primary={task.text} onClick={handleChange}/>
     <ListItemIcon onClick={() => removeTask(task.id)}>
-      <DeleteIcon color="alert"/>
+      <DeleteIcon color="error"/>
     </ListItemIcon>
   </ListItem>;
 }

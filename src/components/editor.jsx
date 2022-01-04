@@ -10,7 +10,7 @@ export default function Editor({addTask}) {
     setName('')
   }
 
-  return <form onSubmit={handleSubmit}>
+  return <form onSubmit={handleSubmit} style={{display: 'flex', alignItems: 'center'}}>
     <TextField value={name} label="Task" onChange={handleChange} size='small' variant="filled" required/>
     <Button type="submit">Add</Button>
   </form>

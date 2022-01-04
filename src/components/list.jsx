@@ -20,7 +20,16 @@ export default function TaskList({tasks, filter, toggleTask, clearCompleted, rem
     <Stack spacing={2}>
       <Typography variant="body1"><strong>Count</strong>: {filteredTasks.length}</Typography>
       {
-        filter === 'completed' && <Button onClick={clearCompleted}>Remove completed</Button>
+        filter === 'completed' 
+        && 
+        <Button
+          onClick={clearCompleted}
+          color="error"
+          variant="outlined"
+          sx={{width: 'max-content', margin: 'auto !important', marginTop: '16px', cursor: 'pointer'}}
+        >
+          Remove completed
+        </Button>
       }
       <List>
         {filteredTasks.map(task => <Task key={task.id} task={task} toggleTask={toggleTask} removeTask={removeTask}/>)}

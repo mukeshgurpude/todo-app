@@ -67,10 +67,10 @@ function App() {
   }
 
   return <Box sx={{justifyContent: 'center', alignItems: 'center',display: 'flex',minHeight: '100vh'}}>
-    <Paper elevation={9} sx={{maxWidth: 'max-content', padding: 2, textAlign: 'center'}}>
+    <Paper elevation={7} sx={{maxWidth: 'max-content', padding: 2, textAlign: 'center'}}>
       <CssBaseline />
       <Stack m='0 auto' spacing={2} width='max-content'>
-        <Typography variant="h1">#todo</Typography>
+        <Typography variant="h3">#todo</Typography>
         <Tabs value={filter} onChange={(e, value) => setFilter(value)}>
           <Tab label={<Label text="All" num={tasks.count} />} value="all"/>
           <Tab label={<Label text="Active" num={tasks.tasks.filter(t => !t.done).length} />} value="active"/>
