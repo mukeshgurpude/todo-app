@@ -1,11 +1,17 @@
 import {useState} from 'react'
-import { TextField, Box, Button } from '@mui/material'
+import { TextField, Button } from '@mui/material'
 
 export default function Editor({addTask}) {
   const [name, setName] = useState('');
   const handleChange = e => setName(e.target.value);
-  return <Box>
+  const handleSubmit = e => {
+    e.preventDefault();
+    addTask(name);
+    setName('')
+  }
+
+  return <form onSubmit={handleSubmit}>
     <TextField value={name} onChange={handleChange} />
-    <Button onClick={()=>{addTask(name);setName('')}}>Add</Button>
-  </Box>
+    <Button type="submit">Add</Button>
+  </form>
 }
