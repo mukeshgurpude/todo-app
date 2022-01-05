@@ -6,7 +6,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://mukeshgurpude.github.io/calculator">
+    <a href="https://mukeshgurpude.github.io/todo-app">
       Demo
     </a>
     <span> | </span>
